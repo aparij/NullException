@@ -8,3 +8,7 @@ To insert job data into MongoDB run :
 
 ``mongoimport --collection job --type json --file jobs2016-04-24_B.json --jsonArray``
 
+API endpoints 
+
+/jobs
+
