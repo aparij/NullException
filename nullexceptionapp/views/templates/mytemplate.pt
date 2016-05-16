@@ -28,6 +28,23 @@
     <div class="starter-template">
       <div class="container">
         <div class="row">
+            <h1>${project}</h1>
+        </div>
+        <div class="row">
+            <table>
+            <tr>
+                <td><h2>Title</h2></td>
+                <td><h2>Company</h2</td>
+            </tr>
+            <tr tal:repeat="job jobs">
+              <td>${job.title}</td>
+              <td>${job.company}</td>
+            </tr>
+          </table>
+        </div>
+
+
+        <!--div class="row">
           <div class="col-md-2">
             <img class="logo img-responsive" src="${request.static_url('nullexceptionapp:static/pyramid.png')}" alt="pyramid web framework">
           </div>
@@ -53,7 +70,7 @@
           <div class="copyright">
             Copyright &copy; Pylons Project
           </div>
-        </div>
+        </div-->
       </div>
     </div>
 

@@ -5,7 +5,8 @@ class JobsView(BaseView):
     _model = Job
 
     def index(self):
-        r = Job.get_collection(**self._params)
+        r = Job.get_collection(_limit=-1)
+        #r = Job.get_collection(**self._params)
         return r
 
     def show(self, **kw):
