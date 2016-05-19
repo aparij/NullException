@@ -1,5 +1,8 @@
 $( document ).ready(function() {
-    $.get( "/jobs", { '_limit': 20, "_start": 0 } )
+
+    var PAGE_LIMIT = 20;
+
+    $.get( "/jobs", { '_limit': PAGE_LIMIT, "_start": 0 } )
         .done(function( result ) {
                 $('#jobs').empty().append(
                          $.map(result.data, function (item, index) {
@@ -8,7 +11,7 @@ $( document ).ready(function() {
                                               + item.tags + '</td></tr>';
                 }).join());
                 $("#fromN").text(0);
-                $("#toN").text(20);
+                $("#toN").text(PAGE_LIMIT);
 
 
   });
@@ -16,12 +19,17 @@ $( document ).ready(function() {
 
     $('#searchBtn').on('click', function() {
         var val = $('#searchField').val();
-        if ($("#fromN").text()!='0'){
-                $("#fromN").text(0);
-                $("#toN").text(20);
 
+        $("#fromN").text(0);
+        $("#toN").text(PAGE_LIMIT);
+        $('#nextBtn').removeAttr("disabled");
+        
+        params = { '_limit': PAGE_LIMIT,'_start': 0} ;
+        if (val != ''){
+            params['q'] = val;
         }
-        $.get( "/jobs", { 'q': val ,  '_limit': 20 } )
+
+        $.get( "/jobs", params )
             .done(function( result ) {
                     $('#jobs').empty().append(
                          $.map(result.data, function (item, index) {
@@ -34,29 +42,69 @@ $( document ).ready(function() {
 
     });
 
-        $('#nextBtn').on('click', function() {
+    $('#nextBtn').on('click', function() {
         var val = $('#searchField').val();
         var _start = $("#toN").text();
-        params = { '_limit': 20,'_start': _start} ;
+        params = { '_limit': PAGE_LIMIT,'_start': _start} ;
         if (val != ''){
             params['q'] = val;
         }
         $.get( "/jobs", params)
             .done(function( result ) {
-                    $('#jobs').empty().append(
-                         $.map(result.data, function (item, index) {
-                            return '<tr><td>' + item.title + '</td><td>'
-                                              + item.company + '</td><td>'
-                                              + item.tags + '</td></tr>';
-                    }).join());
+                    if(result.data.length==0){
+                        $('#nextBtn').attr("disabled", true);
+                    }else{
+                        $('#jobs').empty().append(
+                             $.map(result.data, function (item, index) {
+                                return '<tr><td>' + item.title + '</td><td>'
+                                                  + item.company + '</td><td>'
+                                                  + item.tags + '</td></tr>';
+                        }).join());
 
-                $("#fromN").text(_start);
-                $("#toN").text(parseInt(_start)+20);
+                        $("#fromN").text(_start);
+                        $("#toN").text(parseInt(_start) + PAGE_LIMIT);
+
+                    }
 
 
          });
 
     });
+
+
+    $('#prevBtn').on('click', function() {
+        var val = $('#searchField').val();
+        var _start = parseInt($("#fromN").text()) - PAGE_LIMIT;
+        if (_start<0){
+            return;
+        }
+
+        if($('#nextBtn').prop("disabled")){
+            $('#nextBtn').removeAttr("disabled");
+        }
+
+
+        params = { '_limit': PAGE_LIMIT,'_start': _start} ;
+        if (val != ''){
+            params['q'] = val;
+        }
+        $.get( "/jobs", params)
+            .done(function( result ) {
+                $('#jobs').empty().append(
+                     $.map(result.data, function (item, index) {
+                        return '<tr><td>' + item.title + '</td><td>'
+                                          + item.company + '</td><td>'
+                                          + item.tags + '</td></tr>';
+                }).join());
+
+                $("#fromN").text(_start);
+                $("#toN").text(parseInt(_start) + PAGE_LIMIT);
+
+
+         });
+
+    });
+
 
 
 });

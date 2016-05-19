@@ -7,7 +7,7 @@ class JobsView(BaseView):
 
     def index(self):
         if 'q' in self._params and self._params['q']:
-            return search(self._params['q'],self._params['_limit'],None)
+            return search(self._params['q'],self._params['_limit'],self._params['_start'])
 
         #r = Job.get_collection(_limit=-1)
 

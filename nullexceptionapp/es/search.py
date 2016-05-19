@@ -10,8 +10,8 @@ def search(q, size, start_from ):
                                                    ],
 
                                            }},
-                          "from":0,
-                          "size":10,
+                          "from":int(start_from),
+                          "size":int(size),
                           "sort":[],
                           "aggs":{}}
     )
