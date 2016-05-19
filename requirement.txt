@@ -1,2 +1,4 @@
 git+https://github.com/vahana/prf
 python-dateutil
+elasticsearch
+simplejson

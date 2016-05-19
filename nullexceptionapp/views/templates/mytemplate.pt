@@ -7,7 +7,7 @@
     <meta name="description" content="pyramid web application">
     <meta name="author" content="Pylons Project">
     <link rel="shortcut icon" href="${request.static_url('nullexceptionapp:static/pyramid-16x16.png')}">
-
+    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="${request.static_url('nullexceptionapp:static/js/nullapp.js')}" ></script>
 
     <title>Starter Scaffold for The Pyramid Web Framework</title>
@@ -38,20 +38,17 @@
 
         <div class="row">
             <div>
-                <input type="text" id="searchField">
-                <button onclick="search()">Search Job</button>
+                <input type="text" id="searchField" name="search">
+                <button id="searchBtn" >Search Job</button>
             </div>
 
         </div>
-        <div class="row">
-            <table>
+        <div  class="row">
+            <table id="jobs">
             <tr>
                 <td><h2>Title</h2></td>
                 <td><h2>Company</h2</td>
-            </tr>
-            <tr tal:repeat="job jobs">
-              <td>${job.title}</td>
-              <td>${job.company}</td>
+                <td><h2>Job Tags</h2</td>
             </tr>
           </table>
         </div>
@@ -91,7 +88,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
     <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
   </body>
 </html>
