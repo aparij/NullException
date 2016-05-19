@@ -52,6 +52,17 @@
             </tr>
           </table>
         </div>
+        <div class="row">
+            <button id="prevBtn">Prev</button>
+            From
+            <span id="fromN"> </span>
+            to
+            <span id="toN"></span>
+            Results
+            <button id="nextBtn">Next</button>
+        </div>
+
+
 
 
         <!--div class="row">
