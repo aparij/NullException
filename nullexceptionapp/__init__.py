@@ -14,8 +14,5 @@ def main(global_config, **settings):
     config.include('prf.mongodb')
     root = config.get_root_resource()
     job = root.add('job', 'jobs', view='nullexceptionapp.views.jobs.JobsView')
-    #job_title = job.add('story', 'title', view='prf.view.NoOp')
-
-
 
     return config.make_wsgi_app()
